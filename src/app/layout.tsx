@@ -34,12 +34,12 @@ export default async function RootLayout({
     <html suppressHydrationWarning lang="en">
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          " bg-background font-sans antialiased min-h-[100dvh] ",
           fontSans.variable,
           fontHeading.variable
         )}
       >
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <SessionContext session={session}>
             {children}
             <Toaster />

@@ -10,8 +10,11 @@ export const env = createEnv({
     GOOGLE_ID: z.string().min(1),
     GOOGLE_SECRET: z.string().min(1),
     NEXTAUTH_SECRET: z.string().min(1),
-    NEXTAUTH_URL: z.string().url(),
+    NEXTAUTH_URL: z.string().url().optional(),
     SMTP_FROM: z.string().email(),
+    STRIPE_API_KEY: z.string().min(1),
+    STRIPE_WEBHOOK_SECRET: z.string().min(1),
+    STRIPE_PRO_MONTHLY_PLAN_ID: z.string().min(1),
   },
   client: {},
   runtimeEnv: {
@@ -25,5 +28,8 @@ export const env = createEnv({
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     SMTP_FROM: process.env.SMTP_FROM,
     NEXT_PUBLIC_HOMEPAGE_URL: process.env.NEXT_PUBLIC_HOMEPAGE_URL,
+    STRIPE_API_KEY: process.env.STRIPE_API_KEY,
+    STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
+    STRIPE_PRO_MONTHLY_PLAN_ID: process.env.STRIPE_PRO_MONTHLY_PLAN_ID,
   },
 });

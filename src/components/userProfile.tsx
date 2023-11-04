@@ -24,8 +24,8 @@ export const UserProfile = ({
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-            <Avatar className="h-10 w-10">
+          <Button variant="ghost" className="relative w-8 h-8 rounded-full">
+            <Avatar className="w-10 h-10">
               <Image
                 src={user.image!}
                 alt={user.name!}

@@ -2,19 +2,21 @@
 import { Icons } from "@/components/Icons";
 import { Navbar } from "@/components/navbar";
 import { Button } from "@/components/ui/button";
-import Editor, { Monaco } from "@monaco-editor/react";
+import Editor, { Monaco, useMonaco } from "@monaco-editor/react";
 import { useTheme } from "next-themes";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
-  const editorRef = useRef(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const monacoRef = useRef<Monaco | null>(null);
   const { theme } = useTheme();
-  console.log(theme);
+  function handleEditorWillMount(monaco: Monaco) {
+    monaco.languages.typescript.javascriptDefaults.setEagerModelSync(true);
+  }
+
   function handleEditorDidMount(editor: any, monaco: Monaco) {
-    editorRef.current = editor;
+    monacoRef.current = monaco;
   }
   const [html, setHtml] = useState<string>("");
   const [css, setCSS] = useState<string>("");
@@ -45,12 +47,12 @@ export default function Home() {
     (iframeWindow as any)?.eval(js);
   };
   return (
-    <main className="p-4  pt-28 pb-28 grid lg:grid-cols-2 gap-4 h-screen ">
+    <main className="grid h-screen gap-4 p-4 pt-28 pb-28 lg:grid-cols-2 ">
       <Navbar />
-      <section className="grid grid-rows-3 gap-2   text-white ">
+      <section className="grid grid-rows-3 gap-2 text-white ">
         <div className="border rounded overflow-clip">
           <div className="px-5 pb-3 shadow-md">
-            <p className="font-cal border-b  text-primary flex items-center gap-x-2  py-1">
+            <p className="flex items-center py-1 border-b font-cal text-primary gap-x-2">
               <Icons.html /> <span className="pt-1">HTML</span>
             </p>
           </div>
@@ -62,11 +64,13 @@ export default function Home() {
             theme={theme === "dark" ? "vs-dark" : "light"}
             defaultValue={html}
             defaultLanguage="html"
+            beforeMount={handleEditorWillMount}
+            onMount={handleEditorDidMount}
           />
         </div>
         <div className="border rounded ">
           <div className="px-5 pb-3 shadow-md">
-            <p className="font-cal border-b  text-primary flex items-center gap-x-2  py-1">
+            <p className="flex items-center py-1 border-b font-cal text-primary gap-x-2">
               <Icons.css /> <span className="pt-1"> CSS</span>
             </p>
           </div>
@@ -77,12 +81,14 @@ export default function Home() {
             }}
             defaultValue={css}
             defaultLanguage="css"
+            beforeMount={handleEditorWillMount}
+            onMount={handleEditorDidMount}
           />
         </div>
         <div className="border rounded ">
           <div className="px-5 pt-2 pb-3">
-            <div className="border-b  pb-1  shadow-md flex justify-between items-center">
-              <p className="font-cal   text-primary flex items-center gap-x-2  py-1">
+            <div className="flex items-center justify-between pb-1 border-b shadow-md">
+              <p className="flex items-center py-1 font-cal text-primary gap-x-2">
                 <Icons.js /> <span className="pt-1"> JS</span>
               </p>
               <Button
@@ -91,7 +97,7 @@ export default function Home() {
                 className="w-8 h-8"
                 size={"icon"}
               >
-                <Icons.play className="h-4 w-4" />
+                <Icons.play className="w-4 h-4 text-primary" />
               </Button>
             </div>
           </div>
@@ -103,14 +109,18 @@ export default function Home() {
             theme="vs-dark"
             defaultValue={js}
             defaultLanguage="javascript"
+            beforeMount={handleEditorWillMount}
+            onMount={handleEditorDidMount}
           />
         </div>
       </section>
-      <section className="border px-5 py-5 pt-2 rounded  flex flex-col">
-        <p className="font-cal border-b  text-primary flex items-center gap-x-2  py-1">
-          Preview
-        </p>
-        <iframe className=" rounded  flex-1 " ref={iframeRef} />
+      <section className="flex flex-col px-5 py-5 pt-2 border rounded">
+        <div className="flex items-center py-1 ">
+          <p className="border-b font-cal text-primary gap-x-2 ">Preview</p>
+          <div className=""></div>
+        </div>
+
+        <iframe className="flex-1 rounded " ref={iframeRef} />
       </section>
     </main>
   );
