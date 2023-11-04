@@ -25,16 +25,15 @@ export const UserProfile = ({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-            <Avatar className="h-8 w-8">
-              <AvatarImage>
-                <Image
-                  src={user.image!}
-                  alt={user.name!}
-                  width={32}
-                  height={32}
-                  className="rounded-full"
-                />
-              </AvatarImage>
+            <Avatar className="h-10 w-10">
+              <Image
+                src={user.image!}
+                alt={user.name!}
+                width={40}
+                height={40}
+                className="rounded-full"
+              />
+
               <AvatarFallback>
                 {user.name
                   ?.split(" ")

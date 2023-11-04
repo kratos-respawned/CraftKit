@@ -14,7 +14,7 @@ const fontSans = Montserrat({
   variable: "--font-sans",
 });
 const fontHeading = localFont({
-  src: "../assets/fonts/CalSans-SemiBold.woff2",
+  src: "../../assets/fonts/CalSans-SemiBold.woff2",
   variable: "--font-heading",
 });
 
@@ -31,7 +31,7 @@ export default async function RootLayout({
 }) {
   const session = await getServerSession(authOptions);
   return (
-    <html lang="en">
+    <html suppressHydrationWarning lang="en">
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",

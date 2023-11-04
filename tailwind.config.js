@@ -38,6 +38,8 @@ module.exports = {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
         },
+        ckAccent: "#ff00c3",
+        ckPrimary: "#4a19c4",
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
@@ -52,8 +54,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
-        cal: ["var(--font-heading)", ...fontFamily.sans],
+        sans: ["var(--font-sans)"],
+        cal: ["var(--font-heading)"],
       },
       borderRadius: {
         lg: "var(--radius)",

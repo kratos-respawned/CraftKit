@@ -45,8 +45,22 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  projects      Project[]
 
   @@map("users")
+}
+
+model Project {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  userId      String  @map("user_id") @db.ObjectId
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  html        String  @default("")
+  css         String  @default("")
+  js          String  @default("")
+  isPublic    Boolean @default(false) @map("is_public")
+  ogLink      String  @default("") @map("og_link")
 }
 
 model VerificationToken {
