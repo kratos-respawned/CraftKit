@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# UI Library
 
-First, run the development server:
+## Problem Statement
+Lack of a centralized platform for developers to upload and sell their UI components. Currently, developers have to rely on various marketplaces or create their own websites to sell their components. This creates a fragmented market and makes it difficult for developers to reach a wider audience. Additionally, there is a lack of an in-built code editor, which makes it difficult for developers to create and edit their components. 
+
+## Solution
+
+Our UI library allows developers to upload their UI components and sell them to others. The library includes an in-built code editor, making it easy for developers to create and edit their components. We used Next.js for the frontend and backend, and Stripe for payment processing.
+
+Developers can create an account on our platform and upload their UI components.They can set their own prices and earn money for each sale. Other developers can browse and purchase these components, and use them in their own projects.
+
+Our in-built code editor allows developers to create and edit their components directly on our platform. This eliminates the need for external tools and streamlines the development process.
+
+We used Next.js for the frontend and backend of our platform. Next.js is a popular framework for building server-side rendered React applications. It provides a great developer experience and makes it easy to build scalable applications.
+
+
+## Local Setup
+
+To set up the project locally, follow these steps:
+Clone the project
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+  git clone
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Go to the project directory
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+  cd frontend
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Install dependencies
 
-## Learn More
+```bash
+  pnpm install
+```
 
-To learn more about Next.js, take a look at the following resources:
+Start the server
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+  pnpm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Open browser site
+- Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contributors
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Thanks to the following people who have contributed to this project:
+
+
+- [@Gaurav](https://www.github.com/kratos-respawned)
+- [@Harsh](https://www.github.com/Harsh-uu)
+- [@Javed](https://www.github.com/mdansarijaved)
