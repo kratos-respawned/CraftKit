@@ -3,7 +3,7 @@ import { WelcomeEmail } from '@/components/Email';
 import { env } from '@/env.mjs';
 import { Resend } from 'resend';
 
-const resend = new Resend(env.RESEND_API_KEY);
+const resend = new Resend(env.RESEND_API);
 export async function sendWelcomeEmail(url:string,recipient:string,from:string){
   
     try {
