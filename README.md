@@ -10,9 +10,9 @@ Check out our [Video](https://www.youtube.com/watch?v=ATLbX7zDLDs) to learn more
 Lack of a centralized platform for developers to upload and showcase and share their UI components. Currently, developers have to rely on various marketplaces or create their own websites to let other use their components. This creates a fragmented market and makes it difficult for developers to reach a wider audience. Additionally, there is a lack of an in-built code editor, which makes it difficult for developers to create and edit their components. 
 
 we have used offlicial nextjs cli to create the project and used shadcn ui for the ui library.
-bash
+```bash
   npx create-next-app --example with-typescript with-typescript-app
-
+```
 
 ## Solution
 
@@ -32,13 +32,13 @@ Clone the project
 
 
 ```bash
-  git clone
+  git clone https://github.com/kratos-respawned/CraftKit.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd Craftkit
+  cd CraftKit
 ```
 
 Install dependencies
