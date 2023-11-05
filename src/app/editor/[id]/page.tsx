@@ -12,16 +12,18 @@ import { useParams } from "next/navigation";
 import axios, { AxiosError } from "axios";
 import { useFormState, useFormStatus } from "react-dom";
 import { updateProject } from "@/app/dashboard/action";
+import html2canvas from "html2canvas";
 export default function Home() {
   const router = useParams();
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const monacoRef = useRef<Monaco | null>(null);
   const [isOwner, setIsOwner] = useState<boolean>(false);
   const { theme } = useTheme();
-  const { pending } = useFormStatus();
+
   const [state, formAction] = useFormState(updateProject, {
-    message: "Project Updated",
+    message: null,
   });
+  const { pending } = useFormStatus();
   function handleEditorWillMount(monaco: Monaco) {
     monaco.languages.typescript.javascriptDefaults.setEagerModelSync(true);
   }
@@ -32,6 +34,7 @@ export default function Home() {
   const [html, setHtml] = useState<string>("");
   const [css, setCSS] = useState<string>("");
   const [js, setJS] = useState<string>("");
+  const [image, setImage] = useState<string>("");
   useEffect(() => {
     async function fetchProject() {
       try {
@@ -61,12 +64,24 @@ export default function Home() {
       if (!iframeDocument || iframeDocument === null) return;
       iframeDocument.open();
       iframeDocument.write(
-        `<html> <script src="https://cdn.tailwindcss.com"></script><style>${css}</style><body>${html}</body><html/>`
+        `<html> <script src="https://cdn.tailwindcss.com"></script><style>${css}</style><body class="p-10">${html}</body><html/>`
       );
       iframeDocument.close();
     }, 250);
+    const screenShotTimer = setTimeout(() => {
+      const iframe = iframeRef.current;
+      if (!iframe || iframe === null) return;
+      html2canvas(iframe.contentDocument?.body as HTMLElement).then(
+        (canvas) => {
+          const img = canvas.toDataURL("image/png");
+          setImage(img);
+        }
+      );
+    }, 3000);
+
     return () => {
       clearTimeout(timer);
+      clearTimeout(screenShotTimer);
     };
   }, [css, html, js]);
 
@@ -93,7 +108,7 @@ export default function Home() {
               setHtml(e || "");
             }}
             theme={theme === "dark" ? "vs-dark" : "light"}
-            defaultValue={html}
+            value={html}
             defaultLanguage="html"
             beforeMount={handleEditorWillMount}
             onMount={handleEditorDidMount}
@@ -110,7 +125,7 @@ export default function Home() {
             onChange={(e) => {
               setCSS(e || "");
             }}
-            defaultValue={css}
+            value={css}
             theme={theme === "dark" ? "vs-dark" : "light"}
             defaultLanguage="css"
             beforeMount={handleEditorWillMount}
@@ -139,7 +154,7 @@ export default function Home() {
               setJS(e || "");
             }}
             theme={theme === "dark" ? "vs-dark" : "light"}
-            defaultValue={js}
+            value={js}
             defaultLanguage="javascript"
             beforeMount={handleEditorWillMount}
             onMount={handleEditorDidMount}
@@ -169,10 +184,11 @@ export default function Home() {
             </Button>
             {isOwner && (
               <form action={formAction}>
-                <input type="hidden" name="html" value={html} disabled />
-                <input type="hidden" name="css" value={css} disabled />
-                <input type="hidden" name="js" value={js} disabled />
-                <input type="hidden" name="id" value={router.id} disabled />
+                <input type="hidden" name="og" value={image} />
+                <input type="hidden" name="html" value={html} />
+                <input type="hidden" name="css" value={css} />
+                <input type="hidden" name="js" value={js} />
+                <input type="hidden" name="id" value={router.id} />
                 <Button className="w-8 h-8" variant={"outline"} size={"icon"}>
                   <span className="sr-only">upload</span>
                   {pending ? (

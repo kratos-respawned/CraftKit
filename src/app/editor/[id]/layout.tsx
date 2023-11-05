@@ -13,11 +13,11 @@ interface layoutProps {
 const Layout: React.FC<layoutProps> = async ({ params, children }) => {
   const session = await getServerSession(authOptions);
   if (!session) {
-    console.log("no session");
+    redirect("/login");
   }
   if (!params.id) {
     console.log("no id");
-    // notFound();
+    redirect("/");
   }
   const project = await db.project
     .findFirst({
@@ -27,7 +27,7 @@ const Layout: React.FC<layoutProps> = async ({ params, children }) => {
     })
     .catch((err) => console.log(err));
   if (!project) {
-    console.log("no project");
+    notFound();
   }
   //   if (project.isPublic === false) redirect("/login");
   return <>{children}</>;

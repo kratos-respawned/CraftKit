@@ -8,6 +8,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { SessionContext } from "@/components/Session";
 import { ThemeProvider } from "@/components/ui/themeProvider";
+import { Footer } from "@/components/Footer";
 
 const fontSans = Montserrat({
   subsets: ["latin"],
@@ -31,10 +32,10 @@ export default async function RootLayout({
 }) {
   const session = await getServerSession(authOptions);
   return (
-    <html suppressHydrationWarning lang="en">
+    <html className="scroll-smooth" suppressHydrationWarning lang="en">
       <body
         className={cn(
-          " bg-background font-sans antialiased min-h-[100dvh] ",
+          " bg-background font-sans relative antialiased min-h-[100dvh] ",
           fontSans.variable,
           fontHeading.variable
         )}
@@ -42,6 +43,7 @@ export default async function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <SessionContext session={session}>
             {children}
+
             <Toaster />
           </SessionContext>
         </ThemeProvider>

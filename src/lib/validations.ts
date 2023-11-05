@@ -17,4 +17,5 @@ export const editorSchema = z.object({
   css: z.string(),
   js: z.string(),
   id: z.string(),
+  og: z.string(),
 });

@@ -55,7 +55,7 @@ export const UserProfile = ({
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem asChild>
-              <Link href="/dashboard/files">Dashboard</Link>
+              <Link href="/dashboard">Dashboard</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link href="/dashboard/comingSoon">Billing</Link>

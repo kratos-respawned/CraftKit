@@ -30,14 +30,14 @@ const DashboardDialog = () => {
       // @ts-ignore
       description: e.target.description.value,
       // @ts-ignore
-      tailwind: e.target.tailwind.value === "on" ? true : false,
+      tailwind: e.target.istailwind.value === "on" ? true : false,
       // @ts-ignore
       isPublic: e.target.isPublic.value === "on" ? true : false,
     };
     try {
       const parsedData = projectSchema.parse(formData);
+      console.log(parsedData);
       const resp = await axios.post("/api/createProject", parsedData);
-      // console.log(resp);
       if (resp.status === 200 && resp.data.id)
         router.push(`/editor/${resp.data.id}`);
     } catch (err) {
@@ -63,13 +63,14 @@ const DashboardDialog = () => {
               className="col-span-3"
             />
           </div>
+
           <div className="grid gap-2">
             <Label htmlFor="description">Description</Label>
             <Textarea name="description" placeholder="Enter Description." />
           </div>
           <div className="flex items-center justify-between space-x-4">
             <Label>Are you using Tailwind CSS?</Label>
-            <Switch name="tailwind" id="tailwind" />
+            <Switch name="istailwind" id="tailwind" />
           </div>
           <div className="flex items-center justify-between space-x-4">
             <Label>Is this public?</Label>
@@ -77,11 +78,7 @@ const DashboardDialog = () => {
           </div>
         </div>
         <DialogFooter>
-          <Button
-            type="submit"
-            // disabled={pending}
-            className="disabled:bg-red-500"
-          >
+          <Button type="submit" className="disabled:bg-red-500">
             Save changes
           </Button>
         </DialogFooter>

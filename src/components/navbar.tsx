@@ -8,10 +8,10 @@ import { ChangeTheme } from "./ui/change-theme";
 export const Navbar = () => {
   const { data: session } = useSession();
   return (
-    <header className=" absolute inset-x-0 top-0 flex items-center justify-between px-4 md:px-20 pt-8">
+    <header className="absolute inset-x-0 top-0 flex items-center justify-between px-4 pt-8 md:px-20">
       <Link
         href="/"
-        className="font-cal text-ckAccent font-black text-xl md:text-2xl"
+        className="text-xl font-black font-cal text-ckAccent md:text-2xl"
       >
         <span className="text-primary">Craft</span>Kit
       </Link>

@@ -15,6 +15,8 @@ export const env = createEnv({
     STRIPE_API_KEY: z.string().min(1),
     STRIPE_WEBHOOK_SECRET: z.string().min(1),
     STRIPE_PRO_MONTHLY_PLAN_ID: z.string().min(1),
+    UPLOADIFY_API_KEY: z.string().min(1),
+    UPLOADIFY_API_SECRET: z.string().min(1),
   },
   client: {},
   runtimeEnv: {
@@ -29,6 +31,8 @@ export const env = createEnv({
     SMTP_FROM: process.env.SMTP_FROM,
     NEXT_PUBLIC_HOMEPAGE_URL: process.env.NEXT_PUBLIC_HOMEPAGE_URL,
     STRIPE_API_KEY: process.env.STRIPE_API_KEY,
+    UPLOADIFY_API_KEY: process.env.UPLOADIFY_API_KEY,
+    UPLOADIFY_API_SECRET: process.env.UPLOADIFY_API_SECRET,
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
     STRIPE_PRO_MONTHLY_PLAN_ID: process.env.STRIPE_PRO_MONTHLY_PLAN_ID,
   },
