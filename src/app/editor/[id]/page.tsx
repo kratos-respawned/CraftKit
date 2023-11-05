@@ -3,14 +3,25 @@ import { Icons } from "@/components/Icons";
 import { Navbar } from "@/components/navbar";
 import { Button } from "@/components/ui/button";
 import Editor, { Monaco, useMonaco } from "@monaco-editor/react";
+import { Clipboard, Download, Upload } from "lucide-react";
 import { useTheme } from "next-themes";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-
+import { saveAs } from "file-saver";
+import JSZip from "jszip";
+import { useParams } from "next/navigation";
+import axios, { AxiosError } from "axios";
+import { useFormState, useFormStatus } from "react-dom";
+import { updateProject } from "@/app/dashboard/action";
 export default function Home() {
+  const router = useParams();
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const monacoRef = useRef<Monaco | null>(null);
+  const [isOwner, setIsOwner] = useState<boolean>(false);
   const { theme } = useTheme();
+  const { pending } = useFormStatus();
+  const [state, formAction] = useFormState(updateProject, {
+    message: "Project Updated",
+  });
   function handleEditorWillMount(monaco: Monaco) {
     monaco.languages.typescript.javascriptDefaults.setEagerModelSync(true);
   }
@@ -22,6 +33,26 @@ export default function Home() {
   const [css, setCSS] = useState<string>("");
   const [js, setJS] = useState<string>("");
   useEffect(() => {
+    async function fetchProject() {
+      try {
+        const resp = await axios.post("/api/isOwner", { id: router.id });
+        if (resp.status === 200) {
+          setCSS(resp.data.css);
+          setJS(resp.data.js);
+          setHtml(resp.data.html);
+          setIsOwner(resp.data.isOwner);
+        }
+      } catch (err) {
+        if (err instanceof AxiosError) {
+          console.log("axios error");
+          console.log(err.cause);
+        }
+        console.log(err);
+      }
+    }
+    fetchProject();
+  }, [router.id]);
+  useEffect(() => {
     if (iframeRef === null) return;
     const timer = setTimeout(() => {
       const iframe = iframeRef.current;
@@ -30,7 +61,7 @@ export default function Home() {
       if (!iframeDocument || iframeDocument === null) return;
       iframeDocument.open();
       iframeDocument.write(
-        `<html> <script src="https://cdn.tailwindcss.com"></script><style>${css}</style><body class="bg-background">${html}</body><html/>`
+        `<html> <script src="https://cdn.tailwindcss.com"></script><style>${css}</style><body>${html}</body><html/>`
       );
       iframeDocument.close();
     }, 250);
@@ -80,6 +111,7 @@ export default function Home() {
               setCSS(e || "");
             }}
             defaultValue={css}
+            theme={theme === "dark" ? "vs-dark" : "light"}
             defaultLanguage="css"
             beforeMount={handleEditorWillMount}
             onMount={handleEditorDidMount}
@@ -106,7 +138,7 @@ export default function Home() {
             onChange={(e) => {
               setJS(e || "");
             }}
-            theme="vs-dark"
+            theme={theme === "dark" ? "vs-dark" : "light"}
             defaultValue={js}
             defaultLanguage="javascript"
             beforeMount={handleEditorWillMount}
@@ -115,9 +147,59 @@ export default function Home() {
         </div>
       </section>
       <section className="flex flex-col px-5 py-5 pt-2 border rounded">
-        <div className="flex items-center py-1 ">
-          <p className="border-b font-cal text-primary gap-x-2 ">Preview</p>
-          <div className=""></div>
+        <div className="flex items-center justify-between w-full py-1 pb-3">
+          <p className=" font-cal text-primary gap-x-2">Preview</p>
+          <div className="flex items-center justify-between gap-2">
+            <Button
+              variant={"outline"}
+              size={"icon"}
+              className="w-8 h-8"
+              onClick={() => {
+                const zip = new JSZip();
+                zip.file("index.html", html);
+                zip.file("index.css", css);
+                zip.file("index.js", js);
+                zip.generateAsync({ type: "blob" }).then((content) => {
+                  saveAs(content, "project.zip");
+                });
+              }}
+            >
+              <span className="sr-only">download</span>
+              <Download className="w-4 h-4 text-primary" />
+            </Button>
+            {isOwner && (
+              <form action={formAction}>
+                <input type="hidden" name="html" value={html} disabled />
+                <input type="hidden" name="css" value={css} disabled />
+                <input type="hidden" name="js" value={js} disabled />
+                <input type="hidden" name="id" value={router.id} disabled />
+                <Button className="w-8 h-8" variant={"outline"} size={"icon"}>
+                  <span className="sr-only">upload</span>
+                  {pending ? (
+                    <Icons.loader className="w-4 h-4 text-primary animate-spin" />
+                  ) : (
+                    <Upload className="w-4 h-4 text-primary" />
+                  )}
+                </Button>
+              </form>
+            )}
+
+            <Button
+              onClick={async () => {
+                await navigator.clipboard.writeText(
+                  `<html> <script src="https://cdn.tailwindcss.com"></script><style>${css}</style><body class="bg-background">${html}
+                  <script>${js}</script>
+                  </body><html/>`
+                );
+              }}
+              className="w-8 h-8"
+              variant={"outline"}
+              size={"icon"}
+            >
+              <span className="sr-only"> Copy To Clipboard</span>
+              <Clipboard className="w-4 h-4 text-primary" />
+            </Button>
+          </div>
         </div>
 
         <iframe className="flex-1 rounded " ref={iframeRef} />

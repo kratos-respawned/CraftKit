@@ -1,7 +1,7 @@
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 interface layoutProps {
   children: React.ReactNode;
@@ -12,14 +12,23 @@ interface layoutProps {
 
 const Layout: React.FC<layoutProps> = async ({ params, children }) => {
   const session = await getServerSession(authOptions);
-  if (!session) redirect("/login");
-  if (!params.id) redirect("/");
-  const project = await db.project.findFirst({
-    where: {
-      projectId: params.id,
-    },
-  });
-  if (!project) redirect("/");
+  if (!session) {
+    console.log("no session");
+  }
+  if (!params.id) {
+    console.log("no id");
+    // notFound();
+  }
+  const project = await db.project
+    .findFirst({
+      where: {
+        id: params.id,
+      },
+    })
+    .catch((err) => console.log(err));
+  if (!project) {
+    console.log("no project");
+  }
   //   if (project.isPublic === false) redirect("/login");
   return <>{children}</>;
 };
