@@ -18,7 +18,7 @@ const authOptions: NextAuthOptions = {
   providers: [
     GithubProvider({
       clientId: env.GITHUB_ID,
-      clientSecret: env.GITHUB_SECRET
+      clientSecret: env.GITHUB
     }),
     GoogleProvider({
       clientId: env.GOOGLE_ID,
