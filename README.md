@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# UI Library
 
-## Getting Started
+## Presentation
 
-First, run the development server:
+Check out our [presentation](https://pitch.com/public/a3ad8c82-7ea2-4204-948d-2aa67b7b049e) to learn more about our project.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Check out our [Video](https://www.youtube.com/watch?v=ATLbX7zDLDs) to learn more about our project.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Problem Statement
+Lack of a centralized platform for developers to upload and showcase and share their UI components. Currently, developers have to rely on various marketplaces or create their own websites to let other use their components. This creates a fragmented market and makes it difficult for developers to reach a wider audience. Additionally, there is a lack of an in-built code editor, which makes it difficult for developers to create and edit their components. 
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+we have used offlicial nextjs cli to create the project and used shadcn ui for the ui library.
+bash
+  npx create-next-app --example with-typescript with-typescript-app
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+## Solution
 
-To learn more about Next.js, take a look at the following resources:
+Our UI library allows developers to upload their UI components and share them to others. The library includes an in-built code editor, making it easy for developers to create and edit their components. We used Next.js for the frontend and backend with prisma, shadcn ui, mongoDB.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Developers can create an account on our platform and upload their UI components. They can also edit their components and delete them. Developers can also view other components and download them.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Our in-built code editor allows developers to create and edit their components directly on our platform. This eliminates the need for external tools and streamlines the development process.
 
-## Deploy on Vercel
+We used Next.js for the frontend and backend of our platform. Next.js is a popular framework for building server-side rendered React applications. It provides a great developer experience and makes it easy to build scalable applications.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Local Setup
+
+To set up the project locally, follow these steps:
+Clone the project
+
+
+bash
+  git clone
+
+
+Go to the project directory
+
+bash
+  cd Craftkit
+
+
+Install dependencies
+
+bash
+  pnpm install
+
+
+Start the server
+
+bash
+  pnpm run dev
+
+
+Open browser site
+- Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+
+## Contributors
+
+Thanks to the following people who have contributed to this project:
+
+
+- [@Gaurav](https://www.github.com/kratos-respawned)
+- [@Harsh](https://www.github.com/Harsh-uu)
+- [@Javed](https://www.github.com/mdansarijaved)
