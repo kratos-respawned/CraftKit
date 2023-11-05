@@ -31,27 +31,27 @@ To set up the project locally, follow these steps:
 Clone the project
 
 
-bash
+```bash
   git clone
-
+```
 
 Go to the project directory
 
-bash
+```bash
   cd Craftkit
-
+```
 
 Install dependencies
 
-bash
+```bash
   pnpm install
-
+```
 
 Start the server
 
-bash
+```bash
   pnpm run dev
-
+```
 
 Open browser site
 - Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
