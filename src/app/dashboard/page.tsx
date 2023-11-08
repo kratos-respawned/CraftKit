@@ -11,6 +11,7 @@ import DashboardCards from "@/components/Dashboard";
 export const dynamic = "force-dynamic";
 const Dashboard = async () => {
   const session = await getServerSession(authOptions);
+  console.log(session?.user.image);
   if (!session) redirect("/login");
 
   return (

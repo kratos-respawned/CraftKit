@@ -21,7 +21,7 @@ const Page = () => {
             >
               <figure className="absolute top-0 w-24 rounded-full bg-ckAccent aspect-square " />
             </figure>
-            <h1 className=" leading-tight text-[clamp(2.5rem,10vw,5rem)]  font-cal py-2">
+            <h1 className="  text-[clamp(2.5rem,10vw,5rem)]  font-cal py-2">
               Community-{" "}
               <span className="italic underline decoration-wavy underline-offset-auto decoration-ckAccent">
                 Crafted
@@ -32,8 +32,8 @@ const Page = () => {
               Your Creative Toolbox for Web Wizards and App Alchemists
             </p>
             <div className="flex items-center justify-center gap-x-4">
-              <Link
-                href={"#explore"}
+              <a
+                href="#explore"
                 className={cn(
                   buttonVariants({
                     variant: "default",
@@ -42,7 +42,7 @@ const Page = () => {
                 )}
               >
                 Get Started
-              </Link>
+              </a>
               <Link
                 href="/dashboard"
                 className={cn(
