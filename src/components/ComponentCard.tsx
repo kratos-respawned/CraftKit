@@ -15,7 +15,7 @@ const ComponentCard: React.FC<ComponentCardProps> = ({ project }) => {
   return (
     <Card
       key={project.id}
-      className="max-w-sm mx-auto overflow-hidden transition-all duration-200 rounded-lg shadow-lg hover:shadow-xl"
+      className="max-w-xs mx-auto overflow-hidden transition-all duration-200 rounded-lg shadow-lg sm:max-w-sm hover:shadow-xl"
     >
       <Image
         alt="Profile picture"

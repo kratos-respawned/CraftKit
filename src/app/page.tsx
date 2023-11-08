@@ -1,5 +1,7 @@
 import { Footer } from "@/components/Footer";
 import HighLights from "@/components/Highlights";
+import HighlightsFallback from "@/components/Suspense/HighlightsFallback";
+import LoaderCard from "@/components/loaderCard";
 import { Navbar } from "@/components/navbar";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -55,7 +57,7 @@ const Page = () => {
             </div>
           </div>
         </section>
-        <Suspense fallback={<div>fallback</div>}>
+        <Suspense fallback={<HighlightsFallback />}>
           <HighLights />
         </Suspense>
       </main>
